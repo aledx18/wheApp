@@ -10,7 +10,7 @@ import {
   IconDot,
   IconRain
 } from './components/icons/icons'
-import Loading from './components/loading'
+import Loading from './components/Loading'
 
 interface IHourData {
   temp_c: number

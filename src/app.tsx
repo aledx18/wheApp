@@ -10,6 +10,7 @@ import {
   IconDot,
   IconRain
 } from './components/icons/icons'
+import Loading from './components/loading'
 
 interface IHourData {
   temp_c: number
@@ -58,14 +59,13 @@ export function App() {
     }
   }, [])
 
-  console.log(text)
   function showError(error: { message: string }) {
     alert('Error al obtener la ubicación: ' + error.message)
   }
 
   return (
     <section className='h-screen flex justify-center items-center py-2'>
-      {text && (
+      {text ? (
         <div className='bg-sky-100 flex flex-col rounded-xl shadow-md items-center text-center'>
           <div className='px-2 flex flex-col'>
             <div className='flex gap-2 items-center pt-4'>
@@ -163,6 +163,8 @@ export function App() {
             </Tab.Group>
           </div>
         </div>
+      ) : (
+        <Loading fecha={fecha} />
       )}
     </section>
   )

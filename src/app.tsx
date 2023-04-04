@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'preact/hooks'
 import getClima from './components/getWheater'
-import { Tab } from '@headlessui/react'
 import {
   IconLocation,
   IconSunny,
@@ -11,6 +10,14 @@ import {
   IconRain
 } from './components/icons/icons'
 import Loading from './components/Loading'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/pagination'
+
+// import required modules
+import { Pagination } from 'swiper'
 
 interface IHourData {
   temp_c: number
@@ -32,8 +39,6 @@ export function App() {
     maxPredictDay: number
     minPredictDay: number
     hoursOne: IHourData[]
-    hoursTwo: IHourData[]
-    hoursThree: IHourData[]
   }>()
   const [fecha, setFecha] = useState<string>('')
 
@@ -102,65 +107,29 @@ export function App() {
               </div>
             </div>
           </div>
-          <div className='flex flex-col bg-white pt-4 rounded-t-3xl rounded-b-xl '>
-            <Tab.Group>
-              <Tab.Panels className='flex'>
-                <Tab.Panel className='flex w-full items-center text-center'>
-                  {text.hoursOne.map((h) => (
-                    <div
-                      key={h.time}
-                      className=' flex shadow-md border border-violet-200 px-4 py-3 rounded-xl'
-                    >
-                      <div className='flex flex-col items-center'>
-                        <h3> {h.time.slice(11, 16)}</h3>
-                        <IconRain />
-                        <h4>{Math.round(h.temp_c)}°c</h4>
-                      </div>
-                    </div>
-                  ))}
-                </Tab.Panel>
-
-                <Tab.Panel className='flex justify-around w-full items-center text-center'>
-                  {text.hoursTwo.map((h) => (
-                    <div
-                      key={h.time}
-                      className='flex shadow-md border border-violet-200 px-4 py-3 rounded-xl'
-                    >
-                      <div className='flex flex-col items-center'>
-                        <h3> {h.time.slice(11, 16)}</h3>
-                        <IconRain />
-                        <h4>{Math.round(h.temp_c)}°c</h4>
-                      </div>
-                    </div>
-                  ))}
-                </Tab.Panel>
-                <Tab.Panel className='flex justify-around w-full items-center text-center'>
-                  {text.hoursThree.map((h) => (
-                    <div
-                      key={h.time}
-                      className='flex shadow-md border border-violet-200 px-4 py-3 rounded-xl'
-                    >
-                      <div className='flex flex-col items-center'>
-                        <h3> {h.time.slice(11, 16)}</h3>
-                        <IconRain />
-                        <h4>{Math.round(h.temp_c)}°c</h4>
-                      </div>
-                    </div>
-                  ))}
-                </Tab.Panel>
-              </Tab.Panels>
-              <Tab.List className='flex justify-center my-4'>
-                <Tab>
-                  <IconDot />
-                </Tab>
-                <Tab>
-                  <IconDot />
-                </Tab>
-                <Tab>
-                  <IconDot />
-                </Tab>
-              </Tab.List>
-            </Tab.Group>
+          <div className='flex flex-col bg-white py-4  rounded-b-xl '>
+            <Swiper
+              slidesPerView={4}
+              spaceBetween={1}
+              modules={[Pagination]}
+              pagination={{
+                clickable: true
+              }}
+              className='h-full w-80'
+            >
+              {text.hoursOne.map((h) => (
+                <SwiperSlide
+                  key={h.time}
+                  className='cursor-pointer flex justify-center items-center text-center shadow-md border border-violet-200 px-4 py-3 rounded-xl'
+                >
+                  <div className='flex flex-col items-center'>
+                    <h3> {h.time.slice(11, 16)}</h3>
+                    <IconRain />
+                    <h4>{Math.round(h.temp_c)}°c</h4>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       ) : (

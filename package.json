@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.13",
     "dotenv": "^16.0.3",
-    "preact": "^10.11.3"
+    "preact": "^10.11.3",
+    "swiper": "9.2.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
